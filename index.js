@@ -227,7 +227,7 @@ async function ReferralCommissionPaidEventHandler(user, referrer, commissionAmou
             await axios.post(`${api_url}/api/transactions`, {
                 data: {
                     type: 'commission',
-                    amount: ethers.utils.formatUnits(amount, 8),
+                    amount: ethers.utils.formatUnits(commissionAmount, 8),
                     referral: referralData[0].id,
                     wallet: data[0].id,
                     users_permissions_user: data[0].attributes.users_permissions_user.data.id
@@ -277,7 +277,7 @@ async function GratitudeRewardPaidEventHandler(to, from, commissionAmount, event
             await axios.post(`${api_url}/api/transactions`, {
                 data: {
                     type: 'commission',
-                    amount: ethers.utils.formatUnits(amount, 8),
+                    amount: ethers.utils.formatUnits(commissionAmount, 8),
                     referral: referralData[0].id,
                     wallet: data[0].id,
                     users_permissions_user: data[0].attributes.users_permissions_user.data.id
