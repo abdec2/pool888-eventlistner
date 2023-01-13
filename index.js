@@ -276,7 +276,7 @@ async function GratitudeRewardPaidEventHandler(to, from, commissionAmount, event
             // create transaction entry with type commission, amount, wallet_id, user_id
             await axios.post(`${api_url}/api/transactions`, {
                 data: {
-                    type: 'commission',
+                    type: 'gratitude',
                     amount: ethers.utils.formatUnits(commissionAmount, 8),
                     referral: referralData[0].id,
                     wallet: data[0].id,
