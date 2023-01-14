@@ -23,7 +23,7 @@ async function DepositEventHandler(user, pid, amount, _packageId, event) {
 
     // get pool info like token address and its decimals
     const decimals = await getTokenDecimalsByPid(pid);
-
+    console.log('deposit', user)
     // transaction type staking
 
     // fetch wallet by wallet address which is user  
@@ -60,7 +60,8 @@ async function TokenPurchasedEventHandler(user, lpToken, purchaseToken, amount, 
     const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_RPC);
     const tokenContract = new ethers.Contract(lpToken, tokenABI, provider);
     const decimals = await tokenContract.decimals();
-
+    
+    console.log('token purchase', user)
     // transaction type = tokenspurchase
 
     // fetch wallet by wallet address which is user  
@@ -96,7 +97,7 @@ async function FeeDeductedEventHandler(user, pid, amount, event) {
     // get pool info like token address and its decimals
 
     const decimals = await getTokenDecimalsByPid(pid);
-
+    console.log('fee deduction', user)
     // transaction type feededucted
 
     // fetch wallet by wallet address which is user  
@@ -130,7 +131,7 @@ async function WithdrawEventHandler(user, pid, amount, event) {
 
     // get pool info like token address and its decimals
     const decimals = await getTokenDecimalsByPid(pid);
-
+    console.log('withdraw', user)
     // transaction type withdrawal
 
     // fetch wallet by wallet address which is user  
@@ -163,7 +164,7 @@ async function WithdrawEventHandler(user, pid, amount, event) {
 async function HarvestEventHandler(user, amount, event) {
 
     // transaction type harvest
-
+    console.log('harvest', user)
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
@@ -193,7 +194,7 @@ async function HarvestEventHandler(user, amount, event) {
 
 async function ReferralCommissionPaidEventHandler(user, referrer, commissionAmount, level, event) {
     // transaction type commission
-
+    console.log('referral', user)
     // fetch wallet by wallet address which is user  
     const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
@@ -243,7 +244,7 @@ async function ReferralCommissionPaidEventHandler(user, referrer, commissionAmou
 
 async function GratitudeRewardPaidEventHandler(to, from, commissionAmount, event) {
      // transaction type commission
-
+     console.log('gratitude', to)
     // fetch wallet by wallet address which is user  
     const url = `/api/wallets?filters[wallet_address]=${to}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
@@ -301,7 +302,7 @@ async function main() {
 
         contract.on('GratitudeRewardPaid', GratitudeRewardPaidEventHandler)
 
-        // contract.on('Harvest', HarvestEventHandler)
+        contract.on('Harvest', HarvestEventHandler)
     } catch(e) {
         console.log(e)
     }
@@ -310,4 +311,3 @@ async function main() {
 
 main();
 
-// 0xC9881DBB8170B141d025904B6F5C399e62603072
