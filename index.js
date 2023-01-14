@@ -263,31 +263,20 @@ async function GratitudeRewardPaidEventHandler(to, from, commissionAmount, event
     const parentData = resp.data.data;
 
     if (data.length > 0 && parentData.length > 0) {
-        // fetch referral by passing user as a child wallet refferrer as parent wallet and level
-        const refUrl = `/api/referrals?filters[level]=1&filters[parent_wallet]=${parentData[0].id}&filters[child_wallet]=${data[0].id}`
-        const response = await axios.get(`${api_url + refUrl}`, {
+         // create transaction entry with type gratitude, commissionAmount, wallet_id, user_id
+         await axios.post(`${api_url}/api/transactions`, {
+            data: {
+                type: 'gratitude',
+                amount: ethers.utils.formatUnits(commissionAmount, 8),
+                wallet: data[0].id,
+                users_permissions_user: data[0].attributes.users_permissions_user.data.id,
+                parent_wallet: parentData[0].id
+            }
+        }, {
             headers: {
                 'Authorization': `Bearer ${api_token}`
             }
-        });
-        const referralData = response.data.data;
-
-        if(referralData.length > 0) {
-            // create transaction entry with type commission, amount, wallet_id, user_id
-            await axios.post(`${api_url}/api/transactions`, {
-                data: {
-                    type: 'gratitude',
-                    amount: ethers.utils.formatUnits(commissionAmount, 8),
-                    referral: referralData[0].id,
-                    wallet: data[0].id,
-                    users_permissions_user: data[0].attributes.users_permissions_user.data.id
-                }
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${api_token}`
-                }
-            })
-        }
+        })
     }
 }
 
