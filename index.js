@@ -235,7 +235,7 @@ async function ReferralCommissionPaidEventHandler(user, referrer, commissionAmou
                     amount: ethers.utils.formatUnits(commissionAmount, 8),
                     referral: referralData[0].id,
                     wallet: parentData[0].id,
-                    users_permissions_user: data[0].id
+                    users_permissions_user: parentData[0].id
                 }
             }, {
                 headers: {
