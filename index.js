@@ -294,11 +294,23 @@ async function main() {
 
         const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
-        contract.on('Deposit', DepositEventHandler)
+        contract.on('Deposit', (user, pid, amount, _packageId, event) => {
+            setTimeout(()=> {
+                DepositEventHandler(user, pid, amount, _packageId, event)
+            }, 30000)
+        })
 
-        contract.on('TokenPurchased', TokenPurchasedEventHandler)
+        contract.on('TokenPurchased', (user, lpToken, purchaseToken, amount, event) => {
+            setTimeout(()=> {
+                TokenPurchasedEventHandler(user, lpToken, purchaseToken, amount, event)
+            }, 30000)
+        })
 
-        contract.on('FeeDeducted', FeeDeductedEventHandler)
+        contract.on('FeeDeducted', (user, pid, amount, event) => {
+            setTimeout(()=> {
+                FeeDeductedEventHandler(user, pid, amount, event)
+            }, 30000)
+        })
 
         contract.on('Withdraw', WithdrawEventHandler)
 
