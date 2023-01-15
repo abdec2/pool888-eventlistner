@@ -134,6 +134,10 @@ async function WithdrawEventHandler(user, pid, amount, event) {
     console.log('withdraw', user)
     // transaction type withdrawal
 
+    if(parseInt(ethers.utils.formatUnits(amount, decimals.toString())) === 0) {
+        return
+    }
+
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
