@@ -10,7 +10,7 @@ const contractAddress = process.env.CONTRACT_ADDRESS;
 async function getTokenDecimalsByPid(pid) {
     const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_RPC);
     const stakingcontract = new ethers.Contract(contractAddress, contractABI, provider);
-    const poolInfo = await stakingcontract.poolInfo(pid);
+    const poolInfo = await stakingcontract.poolInfo(pid.toString());
     const tokenContract = new ethers.Contract(poolInfo.lpToken, tokenABI, provider);
     const decimals = await tokenContract.decimals();
     return decimals
@@ -133,8 +133,7 @@ async function WithdrawEventHandler(user, pid, amount, event) {
     const decimals = await getTokenDecimalsByPid(pid);
     console.log('withdraw', user)
     // transaction type withdrawal
-
-    if(parseInt(ethers.utils.formatUnits(amount, decimals.toString())) === 0) {
+    if(parseInt(amount) === 0) {
         return
     }
 
@@ -326,4 +325,3 @@ async function main() {
 }
 
 main();
-
