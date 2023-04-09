@@ -29,7 +29,7 @@ async function DepositEventHandler(user, pid, amount, _packageId, event) {
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
-    const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`,{
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -67,7 +67,7 @@ async function TokenPurchasedEventHandler(user, lpToken, purchaseToken, amount, 
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
-    const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -103,7 +103,7 @@ async function FeeDeductedEventHandler(user, pid, amount, event) {
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
-    const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -141,7 +141,7 @@ async function WithdrawEventHandler(user, pid, amount, event) {
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
-    const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -172,7 +172,7 @@ async function HarvestEventHandler(user, amount, event) {
     // fetch wallet by wallet address which is user  
     // api url = /api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true
 
-    const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -200,7 +200,7 @@ async function ReferralCommissionPaidEventHandler(user, referrer, commissionAmou
     // transaction type commission
     console.log('referral', user)
     // fetch wallet by wallet address which is user  
-    const url = `/api/wallets?filters[wallet_address]=${user}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${user}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -209,7 +209,7 @@ async function ReferralCommissionPaidEventHandler(user, referrer, commissionAmou
     const data = res.data.data;
 
     // fetch referrer wallet by referrer wallet address 
-    const url2 = `/api/wallets?filters[wallet_address]=${referrer}&populate[users_permissions_user]=true`;
+    const url2 = `/api/wallets?filters[wallet_address][$eqi]=${referrer}&populate[users_permissions_user]=true`;
     const resp = await axios.get(`${api_url + url2}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -250,7 +250,7 @@ async function GratitudeRewardPaidEventHandler(to, from, commissionAmount, event
      // transaction type commission
      console.log('gratitude', to)
     // fetch wallet by wallet address which is user  
-    const url = `/api/wallets?filters[wallet_address]=${to}&populate[users_permissions_user]=true`;
+    const url = `/api/wallets?filters[wallet_address][$eqi]=${to}&populate[users_permissions_user]=true`;
     const res = await axios.get(`${api_url + url}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
@@ -259,7 +259,7 @@ async function GratitudeRewardPaidEventHandler(to, from, commissionAmount, event
     const data = res.data.data;
 
     // fetch referrer wallet by referrer wallet address 
-    const url2 = `/api/wallets?filters[wallet_address]=${from}&populate[users_permissions_user]=true`;
+    const url2 = `/api/wallets?filters[wallet_address][$eqi]=${from}&populate[users_permissions_user]=true`;
     const resp = await axios.get(`${api_url + url2}`, {
         headers: {
             'Authorization': `Bearer ${api_token}`
